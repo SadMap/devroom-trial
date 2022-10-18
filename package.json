@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node index.js",
-    "serve": "tsc && node index.js"
+    "serve": "npx tsc && node index.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/SadMap/devroom-trial#readme",
   "dependencies": {
     "discord.js": "^14.6.0",
+    "mathjs": "^11.3.0",
     "redis": "^4.3.1"
   },
   "type": "module"

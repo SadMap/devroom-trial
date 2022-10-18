@@ -1,7 +1,7 @@
 console.time("startup")
 import { createClient } from 'redis';
 import { DISCORD_TOKEN, REDIS_URL } from './config.js';
-const redis = createClient(
+export const redis = createClient(
     {
         url:REDIS_URL
     }
