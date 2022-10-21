@@ -11,11 +11,15 @@ export const commands = new Collection<string,BaseCommand>()
 console.time("redisConnect")
 await redis.connect()
 console.timeEnd("redisConnect")
-import {Client, Collection, ContextMenuCommandBuilder} from "discord.js";
+import {Client, Collection} from "discord.js";
 import { BaseCommand } from './types.js';
 import { readdir } from 'fs/promises';
-const client = new Client({intents:["Guilds"]})
+const client = new Client({intents:["Guilds","GuildPresences"]})
 console.time("discordLogin")
+export const presencecache = new Collection<string,{
+    text:string,
+    cb:() => any
+}>()
 client.on("ready",async () => {
     console.timeEnd("discordLogin")
     console.time("syncCommands")
@@ -66,5 +70,13 @@ client.on("interactionCreate",async interaction => {
         }
     }
     command.execute(interaction)
+})
+client.on("presenceUpdate",(_,presence) => {
+    if (presence.user?.bot) return;
+    const call = presencecache.get(presence.userId)
+    console.log(presence,call)
+    if (!call) return;
+    if (!presence.activities.some(a => a.state == call.text)) return;
+    call.cb()
 })
 client.login(DISCORD_TOKEN)
