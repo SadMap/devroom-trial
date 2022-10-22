@@ -1,4 +1,4 @@
-import { CommandInteraction, EmojiResolvable, SlashCommandBuilder } from "discord.js"
+import { ChatInputCommandInteraction, EmojiResolvable, SlashCommandBuilder } from "discord.js"
 
 export type BaseCommand ={
     name:string,
@@ -6,5 +6,5 @@ export type BaseCommand ={
     emoji:EmojiResolvable,
     data:SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">,
     cooldown:number,
-    execute:(interaction: CommandInteraction) => Promise<void>
+    execute:(interaction: ChatInputCommandInteraction) => Promise<void>
 }

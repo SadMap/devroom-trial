@@ -2,5 +2,5 @@
 My trial project for DevRoom Freelance
 # Development
 ```bash
-npx nodemon --ext "ts,json" --exec npm run serve
+npx nodemon --ext "ts,json" --exec "npm run serve || exit 1 "
 ```

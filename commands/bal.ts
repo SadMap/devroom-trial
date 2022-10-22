@@ -15,7 +15,7 @@ const command:BaseCommand = {
     execute: async (interaction) => {
         if (!interaction.inGuild()) return;
         const user = interaction.options.getUser("user",false) ?? interaction.user
-        const balance = parseInt(await redis.hGet(`balance.${interaction.guildId}`,interaction.user.id) ?? "0")
+        const balance = parseInt(await redis.hGet(`balance.${interaction.guildId}`,user.id) ?? "0")
         interaction.reply(`User has ${balance} Coins`)
     },
 }

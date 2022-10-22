@@ -50,7 +50,6 @@ const command:BaseCommand = {
             buttons.map(b => b.setDisabled(true))
             buttonrow.setComponents(buttons)
             if (response.customId !== answer+"") {
-                console.log(response.customId,answer)
                 response.update({
                     content:"You lost, try again next time :wink:",
                     components:[buttonrow]
@@ -97,7 +96,6 @@ const command:BaseCommand = {
             buttons.map(b => b.setDisabled(true))
             buttonrow.setComponents(buttons)
             if (response.customId !== res.results[0].correct_answer) {
-                console.log(response.customId,res.results[0].correct_answer)
                 response.update({
                     content:"You lost, try again next time :wink:",
                     components:[buttonrow]

@@ -1,4 +1,4 @@
-import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, escapeMarkdown, SlashCommandBuilder } from "discord.js";
 import { redis } from "../index.js";
 import { BaseCommand } from "../types";
 
@@ -9,7 +9,8 @@ const command:BaseCommand = {
     cooldown:0,
     data:new SlashCommandBuilder()
     .setName("leadderboard")
-    .setDescription("Shows the top 10 coin holders"),
+    .setDescription("Shows the top 10 coin holders")
+    .setDMPermission(false),
     execute: async (interaction) => {
         const keys = await redis.hGetAll(`balance.${interaction.guildId}`)
         let array:{user:string,balance:number}[] = []
@@ -22,10 +23,19 @@ const command:BaseCommand = {
                 })
             }
         }
-        array.sort((a,b) => a.balance-b.balance)
+        array.sort((a,b) => b.balance-a.balance)
         array = array.slice(0,9)
         const embed = new EmbedBuilder()
-        .setDescription()
+        let str = ""
+        for (const user of array) {
+            const discordUser = await interaction.client.users.fetch(user.user)
+            str += `${escapeMarkdown(discordUser.tag)}(\`${user.user}\`)-${user.balance}\n`
+        }
+        embed.setDescription(str)
+        interaction.reply({
+            ephemeral:true,
+            embeds:[embed]
+        })
     },
 }
 export default command;
