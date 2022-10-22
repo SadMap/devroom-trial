@@ -7,7 +7,7 @@ import {randomBytes} from "node:crypto"
 const command:BaseCommand = {
     name:"work",
     emoji:"",
-    cooldown:5*60_000*0,
+    cooldown:5*60_000,
     description:"Earn Money",
     data: new SlashCommandBuilder()
     .setName("work")
