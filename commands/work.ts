@@ -119,7 +119,8 @@ const command:BaseCommand = {
                 ephemeral:true,
                 content:"Failed"
             })
-            presencecache.delete(interaction.user.id)},10_000)
+            presencecache.delete(interaction.user.id)
+        },10_000)
             presencecache.set(interaction.user.id,{
                 text:randomText,
                 cb:() => {interaction.followUp({
@@ -127,6 +128,7 @@ const command:BaseCommand = {
                     content:"Added 400 Coins ! :tada:"
                 })
                 clearTimeout(timeout)
+                presencecache.delete(interaction.user.id)
                 redis.hSet(`balance.${interaction.guildId}`,interaction.user.id,balance+400)
             }
             })
