@@ -16,7 +16,7 @@ const command:BaseCommand = {
     execute: async (interaction) => {
         if (!interaction.inGuild()) return;
         function randomSelect <T extends unknown>  (array:T[]) {
-            return array[Math.round(Math.random()*array.length)]
+            return array[Math.ceil(Math.random()*array.length)]
         }
         function randomNumber() {
             return Math.floor(Math.ceil(Math.random()*100))
